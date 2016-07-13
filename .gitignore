@@ -1,0 +1,10 @@
+# Ignoring following things
+target
+build
+*.iml
+.idea/*
+gen
+build.properties
+.gradle
+*.ipr
+*.iws
