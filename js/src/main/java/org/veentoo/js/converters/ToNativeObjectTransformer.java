@@ -3,6 +3,7 @@ package org.veentoo.js.converters;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.XML;
 import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.NativeObject;
 
@@ -26,7 +27,18 @@ public class ToNativeObjectTransformer {
         return transformer;
     }
 
-    public Object transformObject(Object obj) {
+    @SuppressWarnings("unused")
+    public NativeObject transformJsonToNative(JSONObject jsonObj) {
+        return transformObject(jsonObj);
+    }
+
+    public NativeObject transformXmlToNative(String xmlString) {
+        JSONObject jsonObject = XML.toJSONObject(xmlString);
+        log.debug("Resulting json: " + jsonObject);
+        return transformObject(jsonObject);
+    }
+
+    private Object transformObject(Object obj) {
         if (obj instanceof JSONObject) {
             return transformObject((JSONObject)obj);
         } else if (obj instanceof JSONArray) {
@@ -38,14 +50,17 @@ public class ToNativeObjectTransformer {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private NativeObject transformObject(JSONObject json) {
         if (json.length() == 0) {
-            // TODO
+            log.debug("Zero length json object, return empty native");
+            return new NativeObject();
         }
         NativeObject nativeObj = new NativeObject();
         Set<String> keys = json.keySet();
         for (String key : keys) {
             Object obj = json.get(key);
+            log.debug("obj type: " + obj.getClass().getName());
             if (obj instanceof JSONObject) {
                 log.debug("object: " + obj);
                 nativeObj.put(key, nativeObj, transformObject((JSONObject)obj));
@@ -54,12 +69,13 @@ public class ToNativeObjectTransformer {
                 nativeObj.put(key, nativeObj, transformArray((JSONArray)obj));
             } else {
                 log.debug("value: " + obj);
-                nativeObj.put(key, nativeObj, json.getString(key));
+                nativeObj.put(key, nativeObj, json.get(key).toString());
             }
         }
         return nativeObj;
     }
 
+    @SuppressWarnings("CollectionAddedToSelf")
     private NativeArray transformArray(JSONArray array) {
         NativeArray nativeArray = new NativeArray(array.length());
         for (int i = 0; i < array.length(); i++) {
