@@ -20,6 +20,14 @@ public class Palindrome {
     }
 
     public static boolean isPalindromeMemoryEfficient(String input) {
-        return false;
+        String replacedInput = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        log.debug("replacedInput: " + replacedInput);
+
+        for (int i = 0, j = replacedInput.length() - 1; i < j; i++, j--) {
+            if (replacedInput.charAt(i) != replacedInput.charAt(j)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
