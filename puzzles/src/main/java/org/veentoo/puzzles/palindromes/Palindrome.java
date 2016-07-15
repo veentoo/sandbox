@@ -1,6 +1,5 @@
 package org.veentoo.puzzles.palindromes;
 
-
 import org.apache.log4j.Logger;
 
 public class Palindrome {
@@ -25,6 +24,7 @@ public class Palindrome {
 
         for (int i = 0, j = replacedInput.length() - 1; i < j; i++, j--) {
             if (replacedInput.charAt(i) != replacedInput.charAt(j)) {
+                log.debug("Discrepancy at chars (" + i + ", " + j + ") = (" + replacedInput.charAt(i) + ", " + replacedInput.charAt(j) + ")");
                 return false;
             }
         }
