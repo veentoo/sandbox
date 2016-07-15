@@ -28,6 +28,16 @@ public class TestPalindrome {
         }
     }
 
+    @Test
+    public void isPalindromeUsingLambdaTest() {
+        for (String palindrome : palindromes) {
+            assertTrue(Palindrome.isPalindromeUsingLambda(palindrome));
+        }
+        for (String nonPalindrome : nonPalindromes) {
+            assertFalse(Palindrome.isPalindromeUsingLambda(nonPalindrome));
+        }
+    }
+
     private static final List<String> palindromes = new ArrayList<String>() {
         {
             add("a");
