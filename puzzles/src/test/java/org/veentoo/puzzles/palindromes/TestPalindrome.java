@@ -30,6 +30,7 @@ public class TestPalindrome {
 
     private static final List<String> palindromes = new ArrayList<String>() {
         {
+            add("a");
             add("Madam, I'm Adam");
             add("Argentina manit negra");
             add("707-121-707");
@@ -39,6 +40,8 @@ public class TestPalindrome {
 
     private static final List<String> nonPalindromes = new ArrayList<String>() {
         {
+            add(null);
+            add("");
             add("Madam, I'm Adams");
             add("Argentina manit negrov");
             add("707-123-707");

@@ -6,6 +6,12 @@ public class Palindrome {
     private static final Logger log = Logger.getLogger(Palindrome.class);
 
     public static boolean isPalindromeUsingFlip(String input) {
+        if (input == null || input.length() == 0) {
+            return false;
+        }
+        if (input.length() == 1) {
+            return true;
+        }
         String replacedInput = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
         log.debug("replacedInput: " + replacedInput);
 
@@ -19,6 +25,12 @@ public class Palindrome {
     }
 
     public static boolean isPalindromeMemoryEfficient(String input) {
+        if (input == null || input.length() == 0) {
+            return false;
+        }
+        if (input.length() == 1) {
+            return true;
+        }
         String replacedInput = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
         log.debug("replacedInput: " + replacedInput);
 
