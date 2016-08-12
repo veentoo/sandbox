@@ -8,19 +8,6 @@ import java.util.stream.Stream;
  *         Date: 18.07.2016
  */
 public class UniqueDigits {
-    public static void main(final String... args) {
-//        assertEquals(new int[] {1}, getNumbers(1, 2));
-//        assertEquals(new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, getNumbers(0, 10));
-//        assertEquals(new int[] {97, 98, 102}, getNumbers(97, 103));
-//
-//        long start = System.currentTimeMillis();
-//        assertEquals(6028171, getNumbers(0, Integer.MAX_VALUE).length);
-//        long finish = System.currentTimeMillis();
-//        long time = (finish - start) / 1000;
-//        System.out.println("time of [0, MAX_VALUE) is " + time + " s");
-//        System.out.println("time of [0, MAX_VALUE) is " + time + " s");
-        System.out.println(new UniqueDigits().sortDigits("7463125"));
-    }
 
     private static void assertEquals(int expected, int actual) {
         if (expected != actual)
@@ -40,26 +27,41 @@ public class UniqueDigits {
     }
 
     public static int[] getNumbers(int startInclusive, int endExclusive) {
+
         return new int[0];
     }
 
-    private static int findDuplicates(String n) {
-
-
-        //region Description
-        /*for (int i = 0; i < n.length(); i++) {
-            for (int j = n.length() - 1; j > i; j--) {
-                if (n.charAt(i) == n.charAt(j)) {
-                    return j;
-                }
+    public Integer findSkipDigitPosition (String n) {
+        List<Integer> duplicates = findDuplicates(n);
+        if (duplicates.size() == 0) {
+            return -1;
+        }
+        Integer minLastPosition = n.length();
+        for (Integer duplicate : duplicates) {
+            int position = n.lastIndexOf(duplicate.toString());
+            if (position < minLastPosition) {
+                minLastPosition = position;
             }
-        }*/
-        //endregion
-        return 0;
+        }
+        return minLastPosition;
+    }
+
+    public List<Integer> findDuplicates(String n) {
+        List<Integer> duplicates = new ArrayList<>();
+        Integer[] sortedDigits = sortDigits(n);
+        Integer prevDigit = null;
+        for (int i = 0; i < sortedDigits.length; i++) {
+            Integer sortedDigit = sortedDigits[i];
+            if (prevDigit == null || sortedDigit != prevDigit) {
+                prevDigit = sortedDigit;
+            } else {
+                duplicates.add(sortedDigit);
+            }
+        }
+        return duplicates;
     }
 
     public Integer[] sortDigits(String n) {
-//        System.out.println("sort: " + n);
         if (n.length() > 2) {
             // split
             String n1 = n.substring(0, n.length() / 2);
@@ -69,14 +71,13 @@ public class UniqueDigits {
             return mergeDigits(sorted1, sorted2);
         } else if (n.length() == 1) {
             return new Integer[]{Integer.valueOf(n)};
-        } else {
-//            System.out.println("sorting " + n);
+        } else { // n == 2
             List<Integer> digits = new ArrayList<>();
+            // split to digits, convert to int
             n.chars().mapToObj(i -> (char) i)
                                     .map(i -> Character.getNumericValue(i)).forEach(i -> digits.add(i));
             Collections.sort(digits, (x, y) -> x - y);
             Integer[] sorted = digits.toArray(new Integer[digits.size()]);
-//            System.out.println("sorted: " + Arrays.toString(sorted));
             return sorted;
         }
     }
@@ -100,3 +101,24 @@ public class UniqueDigits {
     }
 
 }
+
+
+
+
+
+
+
+
+//    public static void main(final String... args) {
+//        assertEquals(new int[] {1}, getNumbers(1, 2));
+//        assertEquals(new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, getNumbers(0, 10));
+//        assertEquals(new int[] {97, 98, 102}, getNumbers(97, 103));
+//
+//        long start = System.currentTimeMillis();
+//        assertEquals(6028171, getNumbers(0, Integer.MAX_VALUE).length);
+//        long finish = System.currentTimeMillis();
+//        long time = (finish - start) / 1000;
+//        System.out.println("time of [0, MAX_VALUE) is " + time + " s");
+//        System.out.println("time of [0, MAX_VALUE) is " + time + " s");
+//        System.out.println(new UniqueDigits().sortDigits("7463125"));
+//    }
