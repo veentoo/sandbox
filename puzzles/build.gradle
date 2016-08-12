@@ -10,6 +10,8 @@ repositories {
     mavenCentral()
 }
 
+test.exclude {'org.veentoo.puzzles.palindromes.TestPalindrome'}
+
 dependencies {
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
 

@@ -1,6 +1,10 @@
 package org.veentoo.puzzles.interviews.choister;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 /**
  * @author Anatoly Semenov
@@ -45,14 +49,55 @@ public class UniqueDigits {
     }
 
     private static int findDuplicates(String n) {
-        for (int i = 0; i < n.length(); i++) {
+
+
+        //region Description
+        /*for (int i = 0; i < n.length(); i++) {
             for (int j = n.length() - 1; j > i; j--) {
                 if (n.charAt(i) == n.charAt(j)) {
                     return j;
                 }
             }
-        }
+        }*/
+        //endregion
         return 0;
+    }
+
+    public Integer[] sortDigits(String n) {
+        if (n.length() > 2) {
+            // split
+            String n1 = n.substring(0, n.length() / 2);
+            String n2 = n.substring(n.length() / 2);
+            Integer[] sorted1 = sortDigits(n1);
+            Integer[] sorted2 = sortDigits(n2);
+            return mergeDigits(sorted1, sorted2);
+        } else if (n.length() == 1) {
+            return new Integer[]{Integer.valueOf(n)};
+        } else {
+            List<Integer> digits = new ArrayList<>();
+            n.chars().mapToObj(i -> (char) i)
+                                    .map(i -> Character.getNumericValue(i)).forEach(i -> digits.add(i));
+            Arrays.sort(digits, (x, y) -> x.y);
+            return digits;
+        }
+    }
+
+    public Integer[] mergeDigits(Integer[] arr1, Integer[] arr2) {
+        Integer result[] = new Integer[arr1.length + arr2.length];
+        int i = 0, j = 0, k = 0;
+        while (i < arr1.length && j < arr2.length) {
+            if (arr1[i] < arr2[j]) {
+                result[k++] = arr1[i++];
+            } else {
+                result[k++] = arr2[j++];
+            }
+        }
+        if (arr1.length > arr2.length) {
+            System.arraycopy(arr2, j + 1, result, k + 1, arr2.length - j);
+        } else if (arr2.length > arr1.length) {
+            System.arraycopy(arr1, i + 1, result, k + 1, arr1.length - i);
+        }
+        return result;
     }
 
 }
