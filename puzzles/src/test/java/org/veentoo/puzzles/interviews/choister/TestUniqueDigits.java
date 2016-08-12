@@ -17,11 +17,10 @@ public class TestUniqueDigits {
 
     @Test
     public void findDuplicatesTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method findDuplicatesMethod = UniqueDigits.class.getDeclaredMethod("findDuplicates", String.class);
-        findDuplicatesMethod.setAccessible(true);
+//        Method findDuplicatesMethod = UniqueDigits.class.getDeclaredMethod("findDuplicates", String.class);
+//        findDuplicatesMethod.setAccessible(true);
 //        int pos = ((Integer) findDuplicatesMethod.invoke(null, "1001"));
 //        assertEquals("Not equal", 3, pos);
-        System.out.println(Integer.MAX_VALUE);
-        System.out.println(Character.getNumericValue('1'));
+        System.out.println(new UniqueDigits().sortDigits("7463125"));
     }
 }
