@@ -5,22 +5,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class TestUniqueDigits {
 
-    @Before
-    public void prepareClass() throws NoSuchMethodException {
-
-    }
-
     @Test
-    public void findDuplicatesTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-//        Method findDuplicatesMethod = UniqueDigits.class.getDeclaredMethod("findDuplicates", String.class);
-//        findDuplicatesMethod.setAccessible(true);
-//        int pos = ((Integer) findDuplicatesMethod.invoke(null, "1001"));
-//        assertEquals("Not equal", 3, pos);
-        System.out.println(new UniqueDigits().sortDigits("7463125"));
+    public void sortDigitsTest() {
+        String sorted = Arrays.toString(new UniqueDigits().sortDigits("746312357"));
+        assertEquals("Not sorted as expected", "[1, 2, 3, 3, 4, 5, 6, 7, 7]", sorted);
     }
+
 }

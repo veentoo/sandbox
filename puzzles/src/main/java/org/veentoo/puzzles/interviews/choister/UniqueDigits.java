@@ -59,7 +59,7 @@ public class UniqueDigits {
     }
 
     public Integer[] sortDigits(String n) {
-        System.out.println("sort: " + n);
+//        System.out.println("sort: " + n);
         if (n.length() > 2) {
             // split
             String n1 = n.substring(0, n.length() / 2);
@@ -70,19 +70,18 @@ public class UniqueDigits {
         } else if (n.length() == 1) {
             return new Integer[]{Integer.valueOf(n)};
         } else {
-            System.out.println("sorting " + n);
+//            System.out.println("sorting " + n);
             List<Integer> digits = new ArrayList<>();
             n.chars().mapToObj(i -> (char) i)
                                     .map(i -> Character.getNumericValue(i)).forEach(i -> digits.add(i));
             Collections.sort(digits, (x, y) -> x - y);
             Integer[] sorted = digits.toArray(new Integer[digits.size()]);
-            System.out.println("sorted: " + Arrays.toString(sorted));
+//            System.out.println("sorted: " + Arrays.toString(sorted));
             return sorted;
         }
     }
 
     public Integer[] mergeDigits(Integer[] arr1, Integer[] arr2) {
-        System.out.println("merge: " + Arrays.toString(arr1) + " and " + Arrays.toString(arr2));
         Integer result[] = new Integer[arr1.length + arr2.length];
         int i = 0, j = 0, k = 0;
         while (i < arr1.length && j < arr2.length) {
@@ -92,10 +91,10 @@ public class UniqueDigits {
                 result[k++] = arr2[j++];
             }
         }
-        if (arr1.length > arr2.length) {
-            System.arraycopy(arr1, i + 1, result, k + 1, arr1.length - i);
-        } else if (arr2.length > arr1.length) {
-            System.arraycopy(arr2, j + 1, result, k + 1, arr2.length - j);
+        if (i < arr1.length) {
+            System.arraycopy(arr1, i, result, k, arr1.length - i);
+        } else if (j < arr2.length) {
+            System.arraycopy(arr2, j, result, k, arr2.length - j);
         }
         return result;
     }
