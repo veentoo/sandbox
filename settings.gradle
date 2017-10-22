@@ -1,4 +1,3 @@
 rootProject.name = 'sandbox'
 include 'js'
 include 'puzzles'
-include 'patterns'
