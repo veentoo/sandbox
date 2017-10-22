@@ -16,6 +16,6 @@ public class ChooseMethod {
 
     public static void main(String[] args) {
         A b = new B();
-        new ChooseMethod(b);
+        new ChooseMethod(b);    // prints A
     }
 }

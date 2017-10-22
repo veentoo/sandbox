@@ -10,7 +10,9 @@ public class BinarySearchTreePuzzle {
     }
 
     private boolean checkBST(Node node, int min, int max) {
-        return node == null || min < node.data && node.data < max && checkBST(node.left, min, node.data) && checkBST(node.right, node.data, max);
+        return node == null
+                || min < node.data && node.data < max
+                && checkBST(node.left, min, node.data) && checkBST(node.right, node.data, max);
     }
 
 }
